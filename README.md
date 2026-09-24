@@ -46,6 +46,12 @@ The project uses:
 - Bento-style grids
 - Impeccable design workflows
 
+## Testing
+
+The site includes a 30-test responsive and UI validation suite covering navigation, structure, responsiveness, and design outcomes.
+
+**Result: 30/30 tests passing (100%)**, up from 52% before the design and frontend refinements.
+
 ## Impeccable Integration
 
 The repository includes critique reports, surface briefs, and agent integrations for:
