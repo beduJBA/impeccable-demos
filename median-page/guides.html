@@ -1,253 +1,292 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guides — Pulse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="wrap">
-      <nav>
-        <a href="index.html">
-          <div class="logo">
-            <svg
-              width="20px"
-              height="20px"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-            >
-              <path
-                stroke="#ffffff"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 12h4l3 7 4-14 3 7h4"
-              />
-            </svg>
-            Pulse
-          </div>
-        </a>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Guides — Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* --- Guides Grid --- */
+  .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 48px 0;
+  }
+  .guide-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .guide-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .guide-card:hover::before { opacity: 1; }
+  .guide-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .guide-card--featured { grid-column: span 2; }
 
-        <button
-          class="menu-toggle"
-          aria-label="Toggle menu"
-          aria-expanded="false"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+  .guide-card--movement { border-color: var(--card-movement-accent); }
+  .guide-card--movement:hover { box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-movement-accent); }
+  .guide-card--movement .guide-card__category { color: var(--card-movement-accent); }
+  .guide-card--recovery { border-color: var(--card-recovery-accent); }
+  .guide-card--recovery:hover { box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-recovery-accent); }
+  .guide-card--recovery .guide-card__category { color: var(--card-recovery-accent); }
+  .guide-card--food { border-color: var(--card-food-accent); }
+  .guide-card--food:hover { box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-food-accent); }
+  .guide-card--food .guide-card__category { color: var(--card-food-accent); }
+  .guide-card--mind { border-color: var(--card-mind-accent); }
+  .guide-card--mind:hover { box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-mind-accent); }
+  .guide-card--mind .guide-card__category { color: var(--card-mind-accent); }
+  .guide-card--strength { border-color: var(--card-strength-accent); }
+  .guide-card--strength:hover { box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-strength-accent); }
+  .guide-card--strength .guide-card__category { color: var(--card-strength-accent); }
+  .guide-card--outdoors { border-color: var(--card-outdoors-accent); }
+  .guide-card--outdoors:hover { box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-outdoors-accent); }
+  .guide-card--outdoors .guide-card__category { color: var(--card-outdoors-accent); }
 
-        <div class="nav-links">
-          <a href="move.html">Move</a>
-          <a href="plans.html">Plans</a>
-          <a href="guides.html" aria-current="page">Guides</a>
-          <a href="plans.html" class="pill">Start moving</a>
+  .guide-card__category {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .guide-card__title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .guide-card--featured .guide-card__title { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .guide-card__excerpt { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 16px; flex-grow: 1; }
+  .guide-card__meta { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+  .guide-card__readtime { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
+  .guide-card__link { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .guide-card__link:hover { color: var(--accent-dim); }
+  .guide-card__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* --- FAQ Section --- */
+  .faq-section {
+    padding: 64px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-section h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item summary {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.2s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 1.5rem; color: var(--accent); transition: transform 0.3s ease; }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item summary:hover { color: var(--accent); }
+  .faq-item__answer { padding: 0 0 20px; color: var(--muted); line-height: 1.6; }
+
+  /* --- Closing Section --- */
+  .closing-section { padding: 96px 0; text-align: center; }
+  .closing-section h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .closing-section p {
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 600px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .closing-section .highlight { color: var(--ink); font-weight: 500; }
+
+  /* --- Responsive (page-specific) --- */
+  @media (max-width: 1024px) {
+    .guides-grid { grid-template-columns: repeat(2, 1fr); }
+    .guide-card--featured { grid-column: span 2; }
+  }
+  @media (max-width: 768px) {
+    .guides-grid { grid-template-columns: 1fr; }
+    .guide-card--featured { grid-column: span 1; }
+    .faq-section, .closing-section { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a href="index.html">
+        <div class="logo">
+          <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h4l3 7 4-14 3 7h4"/>
+          </svg>
+          Pulse
         </div>
-      </nav>
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" aria-hidden="true">
+        <a href="move.html">Move</a>
+        <a href="plans.html">Plans</a>
+        <a href="guides.html" aria-current="page">Guides</a>
+        <a href="plans.html" class="pill">Start moving</a>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <header class="hero">
+      <div class="wrap">
+        <h1>Useful things nobody taught you about feeling good.</h1>
+        <p>Fitness advice is everywhere. Good information is harder to find. We collect practical ideas about movement, food, recovery, sleep, and the strange relationship between your body and your everyday life.</p>
+      </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="wrap">
-          <h1>Useful things nobody taught you about feeling good.</h1>
-          <p>
-            Fitness advice is everywhere. Good information is harder to find. We
-            collect practical ideas about movement, food, recovery, sleep, and
-            the strange relationship between your body and your everyday life.
-          </p>
-        </div>
-      </section>
+    <section class="wrap">
+      <div class="guides-grid">
+        <article class="guide-card guide-card--movement guide-card--featured">
+          <span class="guide-card__category">Movement</span>
+          <h2 class="guide-card__title">Why walking might be the most underrated exercise.</h2>
+          <p class="guide-card__excerpt">You don't need to destroy yourself to become healthier. Here's what happens when you make walking part of your day.</p>
+          <div class="guide-card__meta">
+            <span class="guide-card__readtime">8 min read</span>
+            <a href="#" class="guide-card__link">Read the guide</a>
+          </div>
+        </article>
+        <article class="guide-card guide-card--recovery">
+          <span class="guide-card__category">Recovery</span>
+          <h2 class="guide-card__title">You don't need more discipline. You might need more sleep.</h2>
+          <p class="guide-card__excerpt">Recovery isn't the part you do after the "real" workout. It is part of the workout.</p>
+          <div class="guide-card__meta">
+            <span class="guide-card__readtime">6 min read</span>
+            <a href="#" class="guide-card__link">Read the guide</a>
+          </div>
+        </article>
+        <article class="guide-card guide-card--food">
+          <span class="guide-card__category">Food</span>
+          <h2 class="guide-card__title">Eat like a human, not a spreadsheet.</h2>
+          <p class="guide-card__excerpt">Forget obsessing over every number. Start by understanding what your body actually needs from food.</p>
+          <div class="guide-card__meta">
+            <span class="guide-card__readtime">10 min read</span>
+            <a href="#" class="guide-card__link">Read the guide</a>
+          </div>
+        </article>
+        <article class="guide-card guide-card--mind">
+          <span class="guide-card__category">Mind</span>
+          <h2 class="guide-card__title">The five-minute rule for getting yourself moving.</h2>
+          <p class="guide-card__excerpt">Motivation is unreliable. Making the first step ridiculously small is surprisingly powerful.</p>
+          <div class="guide-card__meta">
+            <span class="guide-card__readtime">5 min read</span>
+            <a href="#" class="guide-card__link">Read the guide</a>
+          </div>
+        </article>
+        <article class="guide-card guide-card--strength">
+          <span class="guide-card__category">Strength</span>
+          <h2 class="guide-card__title">Strong enough for what?</h2>
+          <p class="guide-card__excerpt">Strength isn't just about lifting heavier things. It's about making ordinary life feel easier.</p>
+          <div class="guide-card__meta">
+            <span class="guide-card__readtime">7 min read</span>
+            <a href="#" class="guide-card__link">Read the guide</a>
+          </div>
+        </article>
+        <article class="guide-card guide-card--outdoors">
+          <span class="guide-card__category">Outdoors</span>
+          <h2 class="guide-card__title">Your next workout might be outside the door.</h2>
+          <p class="guide-card__excerpt">Parks, hills, stairs, beaches, streets and open spaces can turn movement into something you actually look forward to.</p>
+          <div class="guide-card__meta">
+            <span class="guide-card__readtime">9 min read</span>
+            <a href="#" class="guide-card__link">Read the guide</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-      <section class="wrap">
-        <div class="guides-grid">
-          <article class="guide-card guide-card--movement guide-card--featured">
-            <span class="guide-card__category">Movement</span>
-            <h2 class="guide-card__title">
-              Why walking might be the most underrated exercise.
-            </h2>
-            <p class="guide-card__excerpt">
-              You don't need to destroy yourself to become healthier. Here's
-              what happens when you make walking part of your day.
-            </p>
-            <div class="guide-card__meta">
-              <span class="guide-card__readtime">8 min read</span>
-              <a href="#" class="guide-card__link">Read the guide</a>
-            </div>
-          </article>
+    <section class="faq-section">
+      <div class="wrap">
+        <h2>Start with one question.</h2>
+        <details class="faq-item">
+          <summary>How do I start exercising when I haven't exercised in years?</summary>
+          <p class="faq-item__answer">Start smaller than you think you need to. Walk, stretch, explore basic movements, and gradually increase the amount of activity your body can comfortably handle.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need a gym?</summary>
+          <p class="faq-item__answer">No. A gym can be useful, but strength, mobility, endurance, and general movement can be developed in many different environments.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How often should I train?</summary>
+          <p class="faq-item__answer">There isn't one schedule that works for everyone. Your available time, experience, goals, recovery, and current fitness level all matter.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What should I do when I lose motivation?</summary>
+          <p class="faq-item__answer">Make the next action smaller. Put on your shoes. Walk for five minutes. Stretch while listening to a song. You don't have to feel motivated before you begin.</p>
+        </details>
+      </div>
+    </section>
 
-          <article class="guide-card guide-card--recovery">
-            <span class="guide-card__category">Recovery</span>
-            <h2 class="guide-card__title">
-              You don't need more discipline. You might need more sleep.
-            </h2>
-            <p class="guide-card__excerpt">
-              Recovery isn't the part you do after the "real" workout. It is
-              part of the workout.
-            </p>
-            <div class="guide-card__meta">
-              <span class="guide-card__readtime">6 min read</span>
-              <a href="#" class="guide-card__link">Read the guide</a>
-            </div>
-          </article>
+    <section class="closing-section">
+      <div class="wrap">
+        <h2>One last thing.</h2>
+        <p class="highlight">Your body isn't a project that needs fixing.</p>
+        <p>Take care of it. Challenge it. Rest it. Feed it. Let it take you places.</p>
+        <a href="move.html" class="pill">Go move</a>
+      </div>
+    </section>
+  </main>
 
-          <article class="guide-card guide-card--food">
-            <span class="guide-card__category">Food</span>
-            <h2 class="guide-card__title">
-              Eat like a human, not a spreadsheet.
-            </h2>
-            <p class="guide-card__excerpt">
-              Forget obsessing over every number. Start by understanding what
-              your body actually needs from food.
-            </p>
-            <div class="guide-card__meta">
-              <span class="guide-card__readtime">10 min read</span>
-              <a href="#" class="guide-card__link">Read the guide</a>
-            </div>
-          </article>
-
-          <article class="guide-card guide-card--mind">
-            <span class="guide-card__category">Mind</span>
-            <h2 class="guide-card__title">
-              The five-minute rule for getting yourself moving.
-            </h2>
-            <p class="guide-card__excerpt">
-              Motivation is unreliable. Making the first step ridiculously small
-              is surprisingly powerful.
-            </p>
-            <div class="guide-card__meta">
-              <span class="guide-card__readtime">5 min read</span>
-              <a href="#" class="guide-card__link">Read the guide</a>
-            </div>
-          </article>
-
-          <article class="guide-card guide-card--strength">
-            <span class="guide-card__category">Strength</span>
-            <h2 class="guide-card__title">Strong enough for what?</h2>
-            <p class="guide-card__excerpt">
-              Strength isn't just about lifting heavier things. It's about
-              making ordinary life feel easier.
-            </p>
-            <div class="guide-card__meta">
-              <span class="guide-card__readtime">7 min read</span>
-              <a href="#" class="guide-card__link">Read the guide</a>
-            </div>
-          </article>
-
-          <article class="guide-card guide-card--outdoors">
-            <span class="guide-card__category">Outdoors</span>
-            <h2 class="guide-card__title">
-              Your next workout might be outside the door.
-            </h2>
-            <p class="guide-card__excerpt">
-              Parks, hills, stairs, beaches, streets and open spaces can turn
-              movement into something you actually look forward to.
-            </p>
-            <div class="guide-card__meta">
-              <span class="guide-card__readtime">9 min read</span>
-              <a href="#" class="guide-card__link">Read the guide</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="faq-section">
-        <div class="wrap">
-          <h2>Start with one question.</h2>
-
-          <details class="faq-item">
-            <summary>
-              How do I start exercising when I haven't exercised in years?
-            </summary>
-            <p class="faq-item__answer">
-              Start smaller than you think you need to. Walk, stretch, explore
-              basic movements, and gradually increase the amount of activity
-              your body can comfortably handle.
-            </p>
-          </details>
-
-          <details class="faq-item">
-            <summary>Do I need a gym?</summary>
-            <p class="faq-item__answer">
-              No. A gym can be useful, but strength, mobility, endurance, and
-              general movement can be developed in many different environments.
-            </p>
-          </details>
-
-          <details class="faq-item">
-            <summary>How often should I train?</summary>
-            <p class="faq-item__answer">
-              There isn't one schedule that works for everyone. Your available
-              time, experience, goals, recovery, and current fitness level all
-              matter.
-            </p>
-          </details>
-
-          <details class="faq-item">
-            <summary>What should I do when I lose motivation?</summary>
-            <p class="faq-item__answer">
-              Make the next action smaller. Put on your shoes. Walk for five
-              minutes. Stretch while listening to a song. You don't have to feel
-              motivated before you begin.
-            </p>
-          </details>
-        </div>
-      </section>
-
-      <section class="closing-section">
-        <div class="wrap">
-          <h2>One last thing.</h2>
-          <p class="highlight">Your body isn't a project that needs fixing.</p>
-          <p>
-            Take care of it. Challenge it. Rest it. Feed it. Let it take you
-            places.
-          </p>
-
-          <a href="move.html" class="pill">Go move</a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="wrap">
+  <footer>
+    <div class="wrap">
       <p>&copy; 2026 Pulse.</p>
       <nav>
         <a href="move.html">Move</a>
         <a href="plans.html">Plans</a>
         <a href="guides.html">Guides</a>
       </nav>
-    </footer>
+    </div>
+  </footer>
 
-    <script>
-      const toggle = document.querySelector(".menu-toggle");
-      const navLinks = document.querySelector(".nav-links");
-
-      toggle.addEventListener("click", () => {
-        const isOpen = toggle.getAttribute("aria-expanded") === "true";
-        toggle.setAttribute("aria-expanded", !isOpen);
-        navLinks.classList.toggle("open");
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
-          toggle.setAttribute("aria-expanded", "false");
-          navLinks.classList.remove("open");
-        }
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          toggle.setAttribute("aria-expanded", "false");
-          navLinks.classList.remove("open");
-        }
-      });
-    </script>
-  </body>
+  <div class="nav-overlay" aria-hidden="true"></div>
+  <script src="mobile-nav.js"></script>
+</body>
 </html>

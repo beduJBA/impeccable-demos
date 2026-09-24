@@ -1,691 +1,336 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plans — Pulse</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --bg: #f7f8f2;
-        --bg-section: #f0f1eb;
-        --ink: #171a14;
-        --muted: #5a6350;
-        --accent: #c8ff3d;
-        --accent-dim: #a3d632;
-        --accent-text: #3d6b14;
-        --accent-subtle: rgba(200, 255, 61, 0.08);
-        --surface: #ffffff;
-        --surface-raised: #f7f8f2;
-        --border: #dde2d3;
-        --border-accent: rgba(200, 255, 61, 0.4);
-        --card: #ffffff;
-        --shadow-sm: 0 1px 3px rgba(23, 26, 20, 0.06);
-        --shadow-md: 0 4px 8px rgba(23, 26, 20, 0.08);
-        --shadow-lg: 0 12px 28px rgba(23, 26, 20, 0.1);
-        --shadow-accent: 0 4px 14px rgba(200, 255, 61, 0.25);
-        --section-divider: linear-gradient(
-          90deg,
-          transparent,
-          rgba(200, 255, 61, 0.15),
-          transparent
-        );
-      }
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family:
-          "Inter",
-          -apple-system,
-          system-ui,
-          sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-      }
-      .wrap {
-        max-width: 1120px;
-        margin: 0 auto;
-        padding: 0 24px;
-      }
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Plans — Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* --- Light Theme Override --- */
+  :root {
+    --bg: #f7f8f2;
+    --bg-section: #f0f1eb;
+    --ink: #171a14;
+    --muted: #5a6350;
+    --accent: #c8ff3d;
+    --accent-dim: #a3d632;
+    --accent-text: #3d6b14;
+    --accent-subtle: rgba(200, 255, 61, 0.08);
+    --surface: #ffffff;
+    --surface-raised: #f7f8f2;
+    --border: #dde2d3;
+    --border-accent: rgba(200, 255, 61, 0.4);
+    --card: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(23, 26, 20, 0.06);
+    --shadow-md: 0 4px 8px rgba(23, 26, 20, 0.08);
+    --shadow-lg: 0 12px 28px rgba(23, 26, 20, 0.1);
+    --shadow-accent: 0 4px 14px rgba(200, 255, 61, 0.25);
+    --section-divider: linear-gradient(90deg, transparent, rgba(200, 255, 61, 0.15), transparent);
+  }
 
-      /* --- Navigation --- */
-      nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 24px 0;
-        position: relative;
-      }
-      nav .logo {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
-        font-size: 22px;
-        letter-spacing: -0.02em;
-        color: var(--ink);
-      }
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-      }
-      nav a {
-        color: var(--muted);
-        text-decoration: none;
-        font-size: 15px;
-        transition: color 0.2s;
-        position: relative;
-      }
-      nav a:hover {
-        color: var(--ink);
-      }
-      nav a:not(.pill)::after {
-        content: "";
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--accent);
-        transition: width 0.2s ease;
-      }
-      nav a:not(.pill):hover::after {
-        width: 100%;
-      }
-      nav a[aria-current="page"] {
-        color: var(--ink);
-      }
-      nav a[aria-current="page"]::after {
-        width: 100%;
-      }
+  /* --- Hero (light variant) --- */
+  .hero {
+    background: var(--bg);
+    padding: 96px 0 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--section-divider);
+  }
+  .hero::after { display: none; }
+  .hero .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    max-width: 800px;
+    margin: 0 auto 24px;
+  }
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
 
-      .menu-toggle {
-        display: none;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 12px;
-        min-width: 44px;
-        min-height: 44px;
-        align-items: center;
-        justify-content: center;
-        z-index: 100;
-      }
-      .menu-toggle span {
-        display: block;
-        width: 22px;
-        height: 2px;
-        background: var(--ink);
-        border-radius: 2px;
-        transition:
-          transform 0.3s ease,
-          opacity 0.3s ease;
-      }
-      .menu-toggle span + span {
-        margin-top: 5px;
-      }
-      .menu-toggle[aria-expanded="true"] span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-      }
-      .menu-toggle[aria-expanded="true"] span:nth-child(2) {
-        opacity: 0;
-      }
-      .menu-toggle[aria-expanded="true"] span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-      }
+  /* --- Plan Cards --- */
+  .plans-section { padding: 80px 0; }
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .plan-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .plan-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-accent);
+  }
+  .plan-card.featured {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), var(--shadow-md);
+  }
+  .plan-card.featured:hover {
+    box-shadow: 0 0 0 1px var(--accent), var(--shadow-lg);
+  }
+  .plan-card .duration {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 12px;
+  }
+  .plan-card h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .plan-card p { color: var(--muted); line-height: 1.6; margin-bottom: 24px; flex-grow: 1; }
+  .plan-card ul { list-style: none; margin-bottom: 32px; }
+  .plan-card li {
+    color: var(--ink);
+    font-size: 15px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .plan-card li:last-child { border-bottom: none; }
+  .plan-card li::before { content: "\2192"; color: var(--accent-text); font-weight: 500; }
+  .plan-card .cta { margin-top: auto; }
 
-      .pill {
-        background: var(--accent);
-        color: #171a14;
-        padding: 10px 20px;
-        border-radius: 999px;
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 13px;
-        font-weight: 500;
-        letter-spacing: 0.02em;
-        text-decoration: none;
-        display: inline-block;
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s,
-          background 0.2s;
-        box-shadow: var(--shadow-sm);
-      }
-      .pill:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-accent);
-        background: var(--accent-dim);
-        color: #171a14;
-      }
-      .pill:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
-      }
+  /* --- Build Your Own --- */
+  .build-section {
+    padding: 80px 0;
+    background: var(--bg-section);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .build-section h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .build-section > .wrap > p {
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    max-width: 600px;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+  .build-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .build-item {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .build-item:hover { border-color: var(--border-accent); box-shadow: var(--shadow-sm); }
+  .build-item dt {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .build-item dd { color: var(--muted); font-size: 15px; line-height: 1.5; }
 
-      /* --- Hero --- */
-      .hero {
-        background: var(--bg);
-        padding: 96px 0 72px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-      .hero::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: var(--section-divider);
-      }
-      .hero .label {
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--accent-text);
-        margin-bottom: 16px;
-      }
-      .hero h1 {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
-        font-size: clamp(2.5rem, 6vw, 4.25rem);
-        line-height: 1.1;
-        letter-spacing: -0.03em;
-        color: var(--ink);
-        max-width: 800px;
-        margin: 0 auto 24px;
-      }
-      .hero p {
-        font-size: clamp(1rem, 2vw, 1.25rem);
-        color: var(--muted);
-        max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.6;
-      }
+  /* --- Reassurance --- */
+  .reassurance { padding: 96px 0; text-align: center; }
+  .reassurance h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .reassurance p {
+    color: var(--muted);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 600px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+  }
+  .reassurance p:last-of-type { margin-bottom: 0; }
+  .reassurance .highlight { color: var(--ink); font-weight: 500; }
 
-      /* --- Plan Cards --- */
-      .plans-section {
-        padding: 80px 0;
-      }
-      .plans-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin-top: 48px;
-      }
-      .plan-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 32px;
-        position: relative;
-        transition:
-          transform 0.3s ease,
-          box-shadow 0.3s ease,
-          border-color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-      }
-      .plan-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-lg);
-        border-color: var(--border-accent);
-      }
-      .plan-card.featured {
-        border-color: var(--accent);
-        box-shadow:
-          0 0 0 1px var(--accent),
-          var(--shadow-md);
-      }
-      .plan-card.featured:hover {
-        box-shadow:
-          0 0 0 1px var(--accent),
-          var(--shadow-lg);
-      }
-      .plan-card .duration {
-        font-family: "IBM Plex Mono", monospace;
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--accent-text);
-        margin-bottom: 12px;
-      }
-      .plan-card h2 {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
-        font-size: 1.75rem;
-        letter-spacing: -0.02em;
-        color: var(--ink);
-        margin-bottom: 16px;
-      }
-      .plan-card p {
-        color: var(--muted);
-        line-height: 1.6;
-        margin-bottom: 24px;
-        flex-grow: 1;
-      }
-      .plan-card ul {
-        list-style: none;
-        margin-bottom: 32px;
-      }
-      .plan-card li {
-        color: var(--ink);
-        font-size: 15px;
-        padding: 8px 0;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .plan-card li:last-child {
-        border-bottom: none;
-      }
-      .plan-card li::before {
-        content: "→";
-        color: var(--accent-text);
-        font-weight: 500;
-      }
-      .plan-card .cta {
-        margin-top: auto;
-      }
-
-      /* --- Build Your Own --- */
-      .build-section {
-        padding: 80px 0;
-        background: var(--bg-section);
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-      }
-      .build-section h2 {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
-        font-size: clamp(1.75rem, 4vw, 2.5rem);
-        letter-spacing: -0.02em;
-        color: var(--ink);
-        margin-bottom: 16px;
-      }
-      .build-section > .wrap > p {
-        color: var(--muted);
-        font-size: clamp(1rem, 2vw, 1.125rem);
-        max-width: 600px;
-        margin-bottom: 48px;
-        line-height: 1.6;
-      }
-      .build-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
-      }
-      .build-item {
-        padding: 24px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        transition:
-          border-color 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-      .build-item:hover {
-        border-color: var(--border-accent);
-        box-shadow: var(--shadow-sm);
-      }
-      .build-item dt {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 600;
-        font-size: 1.125rem;
-        color: var(--ink);
-        margin-bottom: 8px;
-      }
-      .build-item dd {
-        color: var(--muted);
-        font-size: 15px;
-        line-height: 1.5;
-      }
-
-      /* --- Reassurance --- */
-      .reassurance {
-        padding: 96px 0;
-        text-align: center;
-      }
-      .reassurance h2 {
-        font-family: "Space Grotesk", sans-serif;
-        font-weight: 700;
-        font-size: clamp(1.75rem, 4vw, 2.5rem);
-        letter-spacing: -0.02em;
-        color: var(--ink);
-        margin-bottom: 32px;
-      }
-      .reassurance p {
-        color: var(--muted);
-        font-size: clamp(1rem, 2vw, 1.25rem);
-        max-width: 600px;
-        margin: 0 auto 24px;
-        line-height: 1.6;
-      }
-      .reassurance p:last-of-type {
-        margin-bottom: 0;
-      }
-      .reassurance .highlight {
-        color: var(--ink);
-        font-weight: 500;
-      }
-
-      /* --- Footer --- */
-      footer {
-        padding: 48px 0;
-        border-top: 1px solid var(--border);
-        text-align: center;
-      }
-      footer p {
-        color: var(--muted);
-        font-size: 14px;
-        margin-bottom: 16px;
-      }
-      footer nav {
-        display: flex;
-        justify-content: center;
-        gap: 24px;
-        padding: 0;
-      }
-      footer nav a {
-        color: var(--muted);
-        font-size: 14px;
-      }
-      footer nav a:hover {
-        color: var(--ink);
-      }
-
-      /* --- Responsive --- */
-      @media (max-width: 1024px) {
-        .plans-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .plan-card:last-child {
-          grid-column: span 2;
-        }
-        .build-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: flex;
-        }
-        .nav-links {
-          position: fixed;
-          top: 0;
-          right: -100%;
-          width: 280px;
-          height: 100vh;
-          background: var(--surface);
-          flex-direction: column;
-          align-items: flex-start;
-          padding: 80px 32px 32px;
-          gap: 24px;
-          transition: right 0.3s ease;
-          box-shadow: var(--shadow-lg);
-        }
-        .nav-links.open {
-          right: 0;
-        }
-        .nav-links a {
-          font-size: 18px;
-        }
-        .plans-grid {
-          grid-template-columns: 1fr;
-        }
-        .plan-card:last-child {
-          grid-column: span 1;
-        }
-        .build-grid {
-          grid-template-columns: 1fr;
-        }
-        .hero {
-          padding: 72px 0 56px;
-        }
-        .plans-section,
-        .build-section,
-        .reassurance {
-          padding: 64px 0;
-        }
-      }
-      @media (max-width: 480px) {
-        .hero h1 {
-          font-size: 2rem;
-        }
-        .plan-card h2 {
-          font-size: 1.5rem;
-        }
-      }
-
-      /* --- Accessibility --- */
-      @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-      :focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
-      }
-    </style>
-  </head>
-  <body>
-    <header class="wrap">
-      <nav>
-          <a href="index.html">
+  /* --- Responsive (page-specific) --- */
+  @media (max-width: 1024px) {
+    .plans-grid { grid-template-columns: repeat(2, 1fr); }
+    .plan-card:last-child { grid-column: span 2; }
+    .build-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .plans-grid { grid-template-columns: 1fr; }
+    .plan-card:last-child { grid-column: span 1; }
+    .build-grid { grid-template-columns: 1fr; }
+    .hero { padding: 72px 0 56px; }
+    .plans-section, .build-section, .reassurance { padding: 64px 0; }
+  }
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 2rem; }
+    .plan-card h2 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a href="index.html">
         <div class="logo">
-            <svg
-              width="20px"
-              height="20px"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-            >
-              <path
-                stroke="#171a14"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 12h4l3 7 4-14 3 7h4"
-              />
-            </svg>
-            Pulse
+          <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+            <path stroke="#171a14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h4l3 7 4-14 3 7h4"/>
+          </svg>
+          Pulse
         </div>
-    </a>
+      </a>
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" aria-hidden="true">
+        <a href="move.html">Move</a>
+        <a href="plans.html" aria-current="page">Plans</a>
+        <a href="guides.html">Guides</a>
+        <a href="plans.html" class="pill">Start moving</a>
+      </div>
+    </nav>
+  </div>
 
-        <button
-          class="menu-toggle"
-          aria-label="Toggle menu"
-          aria-expanded="false"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <div class="nav-links">
-          <a href="move.html">Move</a>
-          <a href="plans.html" aria-current="page">Plans</a>
-          <a href="guides.html">Guides</a>
-          <a href="plans.html" class="pill">Start moving</a>
-        </div>
-      </nav>
+  <main>
+    <header class="hero">
+      <div class="wrap">
+        <h1>Choose a direction.<br />Leave room for life.</h1>
+        <p>Your fitness plan shouldn't become another obligation. Choose a starting point and make it yours.</p>
+      </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="wrap">
-          <h1>Choose a direction.<br />Leave room for life.</h1>
-          <p>
-            Your fitness plan shouldn't become another obligation. Choose a
-            starting point and make it yours.
-          </p>
+    <section class="plans-section">
+      <div class="wrap">
+        <div class="plans-grid">
+          <article class="plan-card">
+            <p class="duration">7 Days</p>
+            <h2>The Reset</h2>
+            <p>For when life has been moving faster than you have. Seven days of simple movement, better sleep, and breathing room.</p>
+            <ul>
+              <li>10–20 minute daily sessions</li>
+              <li>Mobility and recovery</li>
+              <li>Daily walking prompts</li>
+              <li>Simple sleep rituals</li>
+            </ul>
+            <div class="cta"><a href="#" class="pill">Begin the reset</a></div>
+          </article>
+          <article class="plan-card featured">
+            <p class="duration">30 Days</p>
+            <h2>The Build</h2>
+            <p>Build strength, stamina, and confidence without turning your entire life into a training schedule.</p>
+            <ul>
+              <li>3 strength sessions per week</li>
+              <li>Cardio without the treadmill</li>
+              <li>Mobility sessions</li>
+              <li>Flexible recovery days</li>
+            </ul>
+            <div class="cta"><a href="#" class="pill">Start building</a></div>
+          </article>
+          <article class="plan-card">
+            <p class="duration">12 Weeks</p>
+            <h2>The Adventure</h2>
+            <p>A longer journey for people who want to discover what their body can actually do.</p>
+            <ul>
+              <li>Progressive full-body training</li>
+              <li>Outdoor challenges</li>
+              <li>Strength and endurance</li>
+              <li>Recovery tracking</li>
+            </ul>
+            <div class="cta"><a href="#" class="pill">Take the adventure</a></div>
+          </article>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="plans-section">
-        <div class="wrap">
-          <div class="plans-grid">
-            <article class="plan-card">
-              <p class="duration">7 Days</p>
-              <h2>The Reset</h2>
-              <p>
-                For when life has been moving faster than you have. Seven days
-                of simple movement, better sleep, and breathing room.
-              </p>
-              <ul>
-                <li>10–20 minute daily sessions</li>
-                <li>Mobility and recovery</li>
-                <li>Daily walking prompts</li>
-                <li>Simple sleep rituals</li>
-              </ul>
-              <div class="cta">
-                <a href="#" class="pill">Begin the reset</a>
-              </div>
-            </article>
+    <section class="build-section">
+      <div class="wrap">
+        <h2>Or build your own.</h2>
+        <p>Don't want someone else telling you what Tuesday should look like? Good. Choose the movements you enjoy and create a rhythm around your life.</p>
+        <dl class="build-grid">
+          <div class="build-item"><dt>Move</dt><dd>Choose how you want to move.</dd></div>
+          <div class="build-item"><dt>Recover</dt><dd>Give your body time to adapt.</dd></div>
+          <div class="build-item"><dt>Explore</dt><dd>Try something you've never done.</dd></div>
+          <div class="build-item"><dt>Repeat</dt><dd>Keep what works. Change what doesn't.</dd></div>
+        </dl>
+        <div style="margin-top: 48px"><a href="move.html" class="pill">Build my rhythm</a></div>
+      </div>
+    </section>
 
-            <article class="plan-card featured">
-              <p class="duration">30 Days</p>
-              <h2>The Build</h2>
-              <p>
-                Build strength, stamina, and confidence without turning your
-                entire life into a training schedule.
-              </p>
-              <ul>
-                <li>3 strength sessions per week</li>
-                <li>Cardio without the treadmill</li>
-                <li>Mobility sessions</li>
-                <li>Flexible recovery days</li>
-              </ul>
-              <div class="cta">
-                <a href="#" class="pill">Start building</a>
-              </div>
-            </article>
+    <section class="reassurance">
+      <div class="wrap">
+        <h2>What if you miss a day?</h2>
+        <p class="highlight">Nothing happens.</p>
+        <p>You don't lose your progress. You don't start over. You simply move again when you're ready.</p>
+      </div>
+    </section>
+  </main>
 
-            <article class="plan-card">
-              <p class="duration">12 Weeks</p>
-              <h2>The Adventure</h2>
-              <p>
-                A longer journey for people who want to discover what their body
-                can actually do.
-              </p>
-              <ul>
-                <li>Progressive full-body training</li>
-                <li>Outdoor challenges</li>
-                <li>Strength and endurance</li>
-                <li>Recovery tracking</li>
-              </ul>
-              <div class="cta">
-                <a href="#" class="pill">Take the adventure</a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="build-section">
-        <div class="wrap">
-          <h2>Or build your own.</h2>
-          <p>
-            Don't want someone else telling you what Tuesday should look like?
-            Good. Choose the movements you enjoy and create a rhythm around your
-            life.
-          </p>
-
-          <dl class="build-grid">
-            <div class="build-item">
-              <dt>Move</dt>
-              <dd>Choose how you want to move.</dd>
-            </div>
-
-            <div class="build-item">
-              <dt>Recover</dt>
-              <dd>Give your body time to adapt.</dd>
-            </div>
-
-            <div class="build-item">
-              <dt>Explore</dt>
-              <dd>Try something you've never done.</dd>
-            </div>
-
-            <div class="build-item">
-              <dt>Repeat</dt>
-              <dd>Keep what works. Change what doesn't.</dd>
-            </div>
-          </dl>
-
-          <div style="margin-top: 48px">
-            <a href="move.html" class="pill">Build my rhythm</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="reassurance">
-        <div class="wrap">
-          <h2>What if you miss a day?</h2>
-          <p class="highlight">Nothing happens.</p>
-          <p>
-            You don't lose your progress. You don't start over. You simply move
-            again when you're ready.
-          </p>
-        </div>
-      </section>
-    </main>
-
-    <footer class="wrap">
+  <footer>
+    <div class="wrap">
       <p>&copy; 2026 Pulse.</p>
       <nav>
         <a href="move.html">Move</a>
         <a href="plans.html">Plans</a>
         <a href="guides.html">Guides</a>
       </nav>
-    </footer>
+    </div>
+  </footer>
 
-    <script>
-      const toggle = document.querySelector(".menu-toggle");
-      const navLinks = document.querySelector(".nav-links");
-
-      toggle.addEventListener("click", () => {
-        const isOpen = toggle.getAttribute("aria-expanded") === "true";
-        toggle.setAttribute("aria-expanded", !isOpen);
-        navLinks.classList.toggle("open");
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
-          toggle.setAttribute("aria-expanded", "false");
-          navLinks.classList.remove("open");
-        }
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          toggle.setAttribute("aria-expanded", "false");
-          navLinks.classList.remove("open");
-        }
-      });
-    </script>
-  </body>
+  <div class="nav-overlay" aria-hidden="true"></div>
+  <script src="mobile-nav.js"></script>
+</body>
 </html>
