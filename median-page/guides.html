@@ -1,225 +1,253 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Guides — Pulse</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-
+  </head>
+  <body>
     <header class="wrap">
-        <nav>
-      <div class="logo">
-        <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"><path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h4l3 7 4-14 3 7h4"/></svg>
-        Pulse
-      </div>
+      <nav>
+        <a href="index.html">
+          <div class="logo">
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+            >
+              <path
+                stroke="#ffffff"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12h4l3 7 4-14 3 7h4"
+              />
+            </svg>
+            Pulse
+          </div>
+        </a>
 
-            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+        <button
+          class="menu-toggle"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-            <div class="nav-links">
-                <a href="move.html">Move</a>
-                <a href="plans.html">Plans</a>
-                <a href="guides.html" aria-current="page">Guides</a>
-                <a href="plans.html" class="pill">Start moving</a>
-            </div>
-        </nav>
+        <div class="nav-links">
+          <a href="move.html">Move</a>
+          <a href="plans.html">Plans</a>
+          <a href="guides.html" aria-current="page">Guides</a>
+          <a href="plans.html" class="pill">Start moving</a>
+        </div>
+      </nav>
     </header>
 
     <main>
+      <section class="hero">
+        <div class="wrap">
+          <h1>Useful things nobody taught you about feeling good.</h1>
+          <p>
+            Fitness advice is everywhere. Good information is harder to find. We
+            collect practical ideas about movement, food, recovery, sleep, and
+            the strange relationship between your body and your everyday life.
+          </p>
+        </div>
+      </section>
 
-        <section class="hero">
-            <div class="wrap">
-                <h1>Useful things nobody taught you about feeling good.</h1>
-                <p>
-                    Fitness advice is everywhere. Good information is harder to find.
-                    We collect practical ideas about movement, food, recovery, sleep,
-                    and the strange relationship between your body and your everyday life.
-                </p>
+      <section class="wrap">
+        <div class="guides-grid">
+          <article class="guide-card guide-card--movement guide-card--featured">
+            <span class="guide-card__category">Movement</span>
+            <h2 class="guide-card__title">
+              Why walking might be the most underrated exercise.
+            </h2>
+            <p class="guide-card__excerpt">
+              You don't need to destroy yourself to become healthier. Here's
+              what happens when you make walking part of your day.
+            </p>
+            <div class="guide-card__meta">
+              <span class="guide-card__readtime">8 min read</span>
+              <a href="#" class="guide-card__link">Read the guide</a>
             </div>
-        </section>
+          </article>
 
-        <section class="wrap">
-            <div class="guides-grid">
-
-                <article class="guide-card guide-card--movement guide-card--featured">
-                    <span class="guide-card__category">Movement</span>
-                    <h2 class="guide-card__title">Why walking might be the most underrated exercise.</h2>
-                    <p class="guide-card__excerpt">
-                        You don't need to destroy yourself to become healthier.
-                        Here's what happens when you make walking part of your day.
-                    </p>
-                    <div class="guide-card__meta">
-                        <span class="guide-card__readtime">8 min read</span>
-                        <a href="#" class="guide-card__link">Read the guide</a>
-                    </div>
-                </article>
-
-                <article class="guide-card guide-card--recovery">
-                    <span class="guide-card__category">Recovery</span>
-                    <h2 class="guide-card__title">You don't need more discipline. You might need more sleep.</h2>
-                    <p class="guide-card__excerpt">
-                        Recovery isn't the part you do after the "real" workout.
-                        It is part of the workout.
-                    </p>
-                    <div class="guide-card__meta">
-                        <span class="guide-card__readtime">6 min read</span>
-                        <a href="#" class="guide-card__link">Read the guide</a>
-                    </div>
-                </article>
-
-                <article class="guide-card guide-card--food">
-                    <span class="guide-card__category">Food</span>
-                    <h2 class="guide-card__title">Eat like a human, not a spreadsheet.</h2>
-                    <p class="guide-card__excerpt">
-                        Forget obsessing over every number. Start by understanding
-                        what your body actually needs from food.
-                    </p>
-                    <div class="guide-card__meta">
-                        <span class="guide-card__readtime">10 min read</span>
-                        <a href="#" class="guide-card__link">Read the guide</a>
-                    </div>
-                </article>
-
-                <article class="guide-card guide-card--mind">
-                    <span class="guide-card__category">Mind</span>
-                    <h2 class="guide-card__title">The five-minute rule for getting yourself moving.</h2>
-                    <p class="guide-card__excerpt">
-                        Motivation is unreliable. Making the first step ridiculously
-                        small is surprisingly powerful.
-                    </p>
-                    <div class="guide-card__meta">
-                        <span class="guide-card__readtime">5 min read</span>
-                        <a href="#" class="guide-card__link">Read the guide</a>
-                    </div>
-                </article>
-
-                <article class="guide-card guide-card--strength">
-                    <span class="guide-card__category">Strength</span>
-                    <h2 class="guide-card__title">Strong enough for what?</h2>
-                    <p class="guide-card__excerpt">
-                        Strength isn't just about lifting heavier things.
-                        It's about making ordinary life feel easier.
-                    </p>
-                    <div class="guide-card__meta">
-                        <span class="guide-card__readtime">7 min read</span>
-                        <a href="#" class="guide-card__link">Read the guide</a>
-                    </div>
-                </article>
-
-                <article class="guide-card guide-card--outdoors">
-                    <span class="guide-card__category">Outdoors</span>
-                    <h2 class="guide-card__title">Your next workout might be outside the door.</h2>
-                    <p class="guide-card__excerpt">
-                        Parks, hills, stairs, beaches, streets and open spaces
-                        can turn movement into something you actually look forward to.
-                    </p>
-                    <div class="guide-card__meta">
-                        <span class="guide-card__readtime">9 min read</span>
-                        <a href="#" class="guide-card__link">Read the guide</a>
-                    </div>
-                </article>
-
+          <article class="guide-card guide-card--recovery">
+            <span class="guide-card__category">Recovery</span>
+            <h2 class="guide-card__title">
+              You don't need more discipline. You might need more sleep.
+            </h2>
+            <p class="guide-card__excerpt">
+              Recovery isn't the part you do after the "real" workout. It is
+              part of the workout.
+            </p>
+            <div class="guide-card__meta">
+              <span class="guide-card__readtime">6 min read</span>
+              <a href="#" class="guide-card__link">Read the guide</a>
             </div>
-        </section>
+          </article>
 
-        <section class="faq-section">
-            <div class="wrap">
-                <h2>Start with one question.</h2>
-
-                <details class="faq-item">
-                    <summary>How do I start exercising when I haven't exercised in years?</summary>
-                    <p class="faq-item__answer">
-                        Start smaller than you think you need to. Walk, stretch,
-                        explore basic movements, and gradually increase the amount
-                        of activity your body can comfortably handle.
-                    </p>
-                </details>
-
-                <details class="faq-item">
-                    <summary>Do I need a gym?</summary>
-                    <p class="faq-item__answer">
-                        No. A gym can be useful, but strength, mobility, endurance,
-                        and general movement can be developed in many different environments.
-                    </p>
-                </details>
-
-                <details class="faq-item">
-                    <summary>How often should I train?</summary>
-                    <p class="faq-item__answer">
-                        There isn't one schedule that works for everyone. Your available
-                        time, experience, goals, recovery, and current fitness level all matter.
-                    </p>
-                </details>
-
-                <details class="faq-item">
-                    <summary>What should I do when I lose motivation?</summary>
-                    <p class="faq-item__answer">
-                        Make the next action smaller. Put on your shoes. Walk for five minutes.
-                        Stretch while listening to a song. You don't have to feel motivated
-                        before you begin.
-                    </p>
-                </details>
+          <article class="guide-card guide-card--food">
+            <span class="guide-card__category">Food</span>
+            <h2 class="guide-card__title">
+              Eat like a human, not a spreadsheet.
+            </h2>
+            <p class="guide-card__excerpt">
+              Forget obsessing over every number. Start by understanding what
+              your body actually needs from food.
+            </p>
+            <div class="guide-card__meta">
+              <span class="guide-card__readtime">10 min read</span>
+              <a href="#" class="guide-card__link">Read the guide</a>
             </div>
-        </section>
+          </article>
 
-        <section class="closing-section">
-            <div class="wrap">
-                <h2>One last thing.</h2>
-                <p class="highlight">
-                    Your body isn't a project that needs fixing.
-                </p>
-                <p>
-                    Take care of it. Challenge it. Rest it. Feed it.
-                    Let it take you places.
-                </p>
-
-                <a href="move.html" class="pill">Go move</a>
+          <article class="guide-card guide-card--mind">
+            <span class="guide-card__category">Mind</span>
+            <h2 class="guide-card__title">
+              The five-minute rule for getting yourself moving.
+            </h2>
+            <p class="guide-card__excerpt">
+              Motivation is unreliable. Making the first step ridiculously small
+              is surprisingly powerful.
+            </p>
+            <div class="guide-card__meta">
+              <span class="guide-card__readtime">5 min read</span>
+              <a href="#" class="guide-card__link">Read the guide</a>
             </div>
-        </section>
+          </article>
 
+          <article class="guide-card guide-card--strength">
+            <span class="guide-card__category">Strength</span>
+            <h2 class="guide-card__title">Strong enough for what?</h2>
+            <p class="guide-card__excerpt">
+              Strength isn't just about lifting heavier things. It's about
+              making ordinary life feel easier.
+            </p>
+            <div class="guide-card__meta">
+              <span class="guide-card__readtime">7 min read</span>
+              <a href="#" class="guide-card__link">Read the guide</a>
+            </div>
+          </article>
+
+          <article class="guide-card guide-card--outdoors">
+            <span class="guide-card__category">Outdoors</span>
+            <h2 class="guide-card__title">
+              Your next workout might be outside the door.
+            </h2>
+            <p class="guide-card__excerpt">
+              Parks, hills, stairs, beaches, streets and open spaces can turn
+              movement into something you actually look forward to.
+            </p>
+            <div class="guide-card__meta">
+              <span class="guide-card__readtime">9 min read</span>
+              <a href="#" class="guide-card__link">Read the guide</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="faq-section">
+        <div class="wrap">
+          <h2>Start with one question.</h2>
+
+          <details class="faq-item">
+            <summary>
+              How do I start exercising when I haven't exercised in years?
+            </summary>
+            <p class="faq-item__answer">
+              Start smaller than you think you need to. Walk, stretch, explore
+              basic movements, and gradually increase the amount of activity
+              your body can comfortably handle.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>Do I need a gym?</summary>
+            <p class="faq-item__answer">
+              No. A gym can be useful, but strength, mobility, endurance, and
+              general movement can be developed in many different environments.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>How often should I train?</summary>
+            <p class="faq-item__answer">
+              There isn't one schedule that works for everyone. Your available
+              time, experience, goals, recovery, and current fitness level all
+              matter.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary>What should I do when I lose motivation?</summary>
+            <p class="faq-item__answer">
+              Make the next action smaller. Put on your shoes. Walk for five
+              minutes. Stretch while listening to a song. You don't have to feel
+              motivated before you begin.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section class="closing-section">
+        <div class="wrap">
+          <h2>One last thing.</h2>
+          <p class="highlight">Your body isn't a project that needs fixing.</p>
+          <p>
+            Take care of it. Challenge it. Rest it. Feed it. Let it take you
+            places.
+          </p>
+
+          <a href="move.html" class="pill">Go move</a>
+        </div>
+      </section>
     </main>
 
     <footer class="wrap">
-        <p>&copy; 2026 Pulse.</p>
-        <nav>
-            <a href="move.html">Move</a>
-            <a href="plans.html">Plans</a>
-            <a href="guides.html">Guides</a>
-        </nav>
+      <p>&copy; 2026 Pulse.</p>
+      <nav>
+        <a href="move.html">Move</a>
+        <a href="plans.html">Plans</a>
+        <a href="guides.html">Guides</a>
+      </nav>
     </footer>
 
     <script>
-        const toggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        
-        toggle.addEventListener('click', () => {
-            const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-            toggle.setAttribute('aria-expanded', !isOpen);
-            navLinks.classList.toggle('open');
-        });
+      const toggle = document.querySelector(".menu-toggle");
+      const navLinks = document.querySelector(".nav-links");
 
-        document.addEventListener('click', (e) => {
-            if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
-                toggle.setAttribute('aria-expanded', 'false');
-                navLinks.classList.remove('open');
-            }
-        });
+      toggle.addEventListener("click", () => {
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", !isOpen);
+        navLinks.classList.toggle("open");
+      });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                toggle.setAttribute('aria-expanded', 'false');
-                navLinks.classList.remove('open');
-            }
-        });
+      document.addEventListener("click", (e) => {
+        if (!toggle.contains(e.target) && !navLinks.contains(e.target)) {
+          toggle.setAttribute("aria-expanded", "false");
+          navLinks.classList.remove("open");
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          toggle.setAttribute("aria-expanded", "false");
+          navLinks.classList.remove("open");
+        }
+      });
     </script>
-
-</body>
+  </body>
 </html>
