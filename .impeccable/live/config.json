@@ -1,0 +1,6 @@
+{
+  "files": ["median-page/index.html"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}
