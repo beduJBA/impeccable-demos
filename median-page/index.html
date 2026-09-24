@@ -2,70 +2,420 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Nimbus — Ship faster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
 <style>
-  /* A deliberately MEDIAN SaaS landing page. It looks fine. That is the problem.
-     It hits the 2026 AI tells: warm-cream bg, Inter everywhere, a single accent
-     pill, three identical icon-tile feature cards, manifesto copy. Run
-     /impeccable critique on it in the talk. */
-  :root { --bg:#f5f1ea; --ink:#1a1a1a; --muted:#6b6b6b; --accent:#4f46e5; --card:#fffdf9; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:Inter, -apple-system, system-ui, sans-serif; background:var(--bg); color:var(--ink); line-height:1.6; }
-  .wrap { max-width:1080px; margin:0 auto; padding:0 24px; }
-  nav { display:flex; justify-content:space-between; align-items:center; padding:24px 0; }
-  nav .logo { font-weight:700; font-size:20px; }
-  nav a { margin-left:24px; color:var(--muted); text-decoration:none; font-size:15px; }
-  .pill { background:var(--accent); color:#fff; padding:10px 20px; border-radius:999px; font-size:15px; font-weight:600; }
-  .hero { text-align:center; padding:96px 0 72px; }
-  .hero .eyebrow { color:var(--accent); font-weight:600; font-size:14px; letter-spacing:.04em; text-transform:uppercase; }
-  .hero h1 { font-size:56px; font-weight:700; letter-spacing:-0.02em; margin:16px 0; }
-  .hero p { font-size:20px; color:var(--muted); max-width:600px; margin:0 auto 32px; }
-  .features { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding:48px 0; }
-  .card { background:var(--card); border:1px solid #ece7de; border-radius:16px; padding:32px; text-align:center; }
-  .card .icon { width:48px; height:48px; border-radius:12px; background:#eceaff; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:22px; }
-  .card h3 { font-size:18px; font-weight:600; margin-bottom:8px; }
-  .card p { color:var(--muted); font-size:15px; }
-  footer { text-align:center; padding:64px 0; color:var(--muted); font-size:14px; }
+  :root {
+    --bg: #0d0f0e;
+    --bg-hero: linear-gradient(160deg, #0d0f0e 0%, #151816 40%, #0d0f0e 100%);
+    --ink: #e8e8e8;
+    --muted: #9a9a9a;
+    --accent: #c8ff3d;
+    --accent-dim: #a3d632;
+    --accent-subtle: rgba(200, 255, 61, 0.08);
+    --surface: #151816;
+    --surface-raised: #1a1e1c;
+    --border: #2a302c;
+    --border-accent: rgba(200, 255, 61, 0.2);
+    --card: #151816;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.2);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
+    --shadow-accent: 0 4px 20px rgba(200, 255, 61, 0.2);
+    --card-speed-accent: #34d399;
+    --card-speed-glow: rgba(52, 211, 153, 0.15);
+    --card-secure-accent: #60a5fa;
+    --card-secure-glow: rgba(96, 165, 250, 0.15);
+    --card-scale-accent: #f472b6;
+    --card-scale-glow: rgba(244, 114, 182, 0.15);
+    --section-divider: linear-gradient(90deg, transparent, rgba(200, 255, 61, 0.12), transparent);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* --- Navigation --- */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; position: relative; }
+  nav .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.02em; color: var(--ink); }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s; position: relative; }
+  nav a:hover { color: var(--ink); }
+  nav a:not(.pill)::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.2s ease;
+  }
+  nav a:not(.pill):hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .menu-toggle span + span { margin-top: 5px; }
+  .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .pill {
+    background: var(--accent);
+    color: #0d0f0e;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: var(--shadow-sm);
+  }
+  .pill:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-accent);
+    background: var(--accent-dim);
+  }
+
+  /* --- Hero --- */
+  .hero { text-align: center; padding: 96px 0 72px; background: var(--bg-hero); animation: fadeUp 0.8s ease-out both; position: relative; }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: var(--section-divider);
+  }
+  .hero .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--accent-subtle);
+    border: 1px solid var(--border-accent);
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.25rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin: 24px 0 16px;
+    color: var(--ink);
+  }
+  .hero p { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--muted); max-width: 560px; margin: 0 auto 32px; line-height: 1.5; }
+
+  /* --- Bento Grid --- */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 24px;
+    padding: 64px 0 80px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    animation: fadeUp 0.6s ease-out both;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .card:hover::before { opacity: 1; }
+
+  /* Bento: speed card spans 2 cols */
+  .card--speed { grid-column: span 2; text-align: left; }
+  /* Bento: secure card is tall */
+  .card--secure { grid-row: span 2; display: flex; flex-direction: column; justify-content: center; }
+  /* Bento: scale card spans 2 cols */
+  .card--scale { grid-column: span 2; text-align: left; }
+
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .card--speed:hover { border-color: var(--card-speed-accent); box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-speed-accent); }
+  .card--secure:hover { border-color: var(--card-secure-accent); box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-secure-accent); }
+  .card--scale:hover { border-color: var(--card-scale-accent); box-shadow: var(--shadow-lg), 0 0 0 1px var(--card-scale-accent); }
+
+  .card .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: transform 0.25s ease;
+  }
+  .card:not(.card--speed):not(.card--scale) .icon { margin: 0 auto 16px; }
+  .card:hover .icon { transform: scale(1.05); }
+  .card--speed .icon { background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.2); }
+  .card--secure .icon { background: rgba(96, 165, 250, 0.12); border: 1px solid rgba(96, 165, 250, 0.2); }
+  .card--scale .icon { background: rgba(244, 114, 182, 0.12); border: 1px solid rgba(244, 114, 182, 0.2); }
+
+  .card .icon svg { width: 24px; height: 24px; }
+
+  .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--ink); transition: color 0.2s; }
+  .card--speed:hover h2 { color: var(--card-speed-accent); }
+  .card--secure:hover h2 { color: var(--card-secure-accent); }
+  .card--scale:hover h2 { color: var(--card-scale-accent); }
+  .card p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+  .card .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  footer { text-align: center; padding: 48px 0; color: var(--muted); font-size: 14px; border-top: 1px solid var(--border); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- Tablet (768-1023) --- */
+  @media (max-width: 1023px) {
+    .features { grid-template-columns: repeat(2, 1fr); }
+    .card--speed { grid-column: span 2; }
+    .card--secure { grid-row: span 1; }
+    .card--scale { grid-column: span 2; }
+  }
+
+  /* --- Mobile (< 768px) --- */
+  @media (max-width: 767px) {
+    body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+    .menu-toggle { display: flex; }
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(320px, 85vw);
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 80px 32px 32px;
+      gap: 8px;
+      box-shadow: var(--shadow-lg);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 99;
+    }
+    .nav-links[aria-hidden="false"] { transform: translateX(0); }
+    nav a {
+      font-size: 18px;
+      padding: 12px 0;
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    nav a:not(.pill)::after { display: none; }
+    .nav-links .pill {
+      margin-top: 16px;
+      width: 100%;
+      text-align: center;
+      padding: 14px 24px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 98;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .nav-overlay[aria-hidden="false"] { opacity: 1; pointer-events: auto; }
+    .hero { padding: 72px 0 56px; }
+    .hero h1 { margin: 12px 0; }
+    .hero p { margin-bottom: 24px; }
+    .pill.hero-cta { padding: 16px 32px; font-size: 15px; min-height: 52px; }
+    .features { grid-template-columns: 1fr; gap: 24px; padding: 48px 0 64px; }
+    .card--speed, .card--scale { grid-column: span 1; text-align: center; }
+    .card--secure { grid-row: span 1; }
+    .card:not(.card--speed):not(.card--scale) .icon { margin: 0 auto 16px; }
+    .card { padding: 28px; }
+    footer { padding: 40px 0; }
+  }
+
+  /* --- Small phones (< 400px) --- */
+  @media (max-width: 400px) {
+    .wrap { padding: 0 16px; }
+    .hero { padding: 56px 0 40px; }
+    .hero p { font-size: 16px; }
+    .card { padding: 24px; }
+  }
+
+  /* --- Touch: coarse pointer adjustments --- */
+  @media (pointer: coarse) {
+    nav a:not(.pill) { padding: 10px 0; min-height: 44px; display: flex; align-items: center; }
+    .pill { padding: 12px 24px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  }
+
+  /* --- Hover-capable devices --- */
+  @media (hover: hover) and (pointer: fine) {
+    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  }
+  @media (hover: none) {
+    .card:hover { transform: none; box-shadow: none; }
+    .card:active { transform: scale(0.98); }
+  }
+
+  /* --- Reduced motion --- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 </style>
 </head>
 <body>
   <div class="wrap">
     <nav>
       <div class="logo">Nimbus</div>
-      <div>
-        <a href="#">Product</a><a href="#">Pricing</a><a href="#">Docs</a>
-        <a href="#" class="pill">Start free trial</a>
+      <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links">
+        <a href="#" aria-label="Product overview">Product</a>
+        <a href="#" aria-label="View pricing">Pricing</a>
+        <a href="#" aria-label="Read the docs">Docs</a>
+        <a href="#" class="pill" aria-label="Start your free trial">Start free trial</a>
       </div>
     </nav>
 
     <header class="hero">
       <div class="eyebrow">Now with AI</div>
       <h1>Ship faster than ever before</h1>
-      <p>The all-in-one platform that empowers your team to build, launch, and scale
-         with confidence. Seamless, robust, and built for the modern workflow.</p>
-      <a href="#" class="pill">Get started free</a>
+      <p>The all-in-one platform that helps your team build, launch, and scale
+         without the busywork. Fast deploys, real security, zero ceremony.</p>
+      <a href="#" class="pill hero-cta" aria-label="Get started for free">Get started free</a>
     </header>
 
-    <section class="features">
-      <div class="card">
-        <div class="icon">⚡</div>
-        <h3>Lightning Fast</h3>
-        <p>Blazing performance that keeps your team moving at the speed of thought.</p>
+    <section class="features" aria-label="Key features">
+      <div class="card card--speed">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--card-speed-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <span class="label">Performance</span>
+        <h2>Lightning Fast</h2>
+        <p>Deploys in under 10 seconds. Zero-config caching. Your team stays in flow.</p>
       </div>
-      <div class="card">
-        <div class="icon">🔒</div>
-        <h3>Secure by Default</h3>
-        <p>Enterprise-grade security so you can focus on what matters most.</p>
+      <div class="card card--secure">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--card-secure-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <span class="label">Security</span>
+        <h2>Secure by Default</h2>
+        <p>SOC 2 out of the box. Role-based access, audit logs, and SSO included.</p>
       </div>
-      <div class="card">
-        <div class="icon">🚀</div>
-        <h3>Scales With You</h3>
-        <p>From startup to enterprise, Nimbus grows alongside your ambitions.</p>
+      <div class="card card--scale">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--card-scale-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <span class="label">Scale</span>
+        <h2>Scales With You</h2>
+        <p>From side project to IPO. Usage-based pricing means you never overpay.</p>
       </div>
     </section>
 
-    <footer>© 2026 Nimbus, Inc. All rights reserved.</footer>
+    <footer>&copy; 2026 Nimbus, Inc. All rights reserved.</footer>
   </div>
+  <div class="nav-overlay" aria-hidden="true"></div>
+  <script>
+    (function() {
+      var toggle = document.querySelector('.menu-toggle');
+      var links = document.querySelector('.nav-links');
+      var overlay = document.querySelector('.nav-overlay');
+      if (!toggle || !links) return;
+      function openMenu() {
+        toggle.setAttribute('aria-expanded', 'true');
+        links.setAttribute('aria-hidden', 'false');
+        if (overlay) overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        toggle.setAttribute('aria-expanded', 'false');
+        links.setAttribute('aria-hidden', 'true');
+        if (overlay) overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      toggle.addEventListener('click', function() {
+        toggle.getAttribute('aria-expanded') === 'true' ? closeMenu() : openMenu();
+      });
+      if (overlay) overlay.addEventListener('click', closeMenu);
+      links.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', closeMenu);
+      });
+      var mql = window.matchMedia('(min-width: 768px)');
+      mql.addEventListener('change', function(e) { if (e.matches) closeMenu(); });
+    })();
+  </script>
 </body>
 </html>
